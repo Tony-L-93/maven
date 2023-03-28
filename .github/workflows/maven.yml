@@ -36,15 +36,3 @@ jobs:
       with:
         name: test-results
         path: reports/tests/test/
-  
-    - name: Download Test Results
-      uses: actions/download-artifact@v2
-      with:
-        name: test-results
-        path: test-results
-    
-    - name: publish test results
-      uses: actions/upload-artifact@v1
-      with:
-        name: report
-        path: robot/tests/report.html
