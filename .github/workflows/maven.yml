@@ -43,8 +43,8 @@ jobs:
         name: test-results
         path: test-results
     
-    - name: Publish Test Results as Github Pages
-      uses: peaceiris/actions-gh-pages@v3
+    - name: publish test results
+      uses: actions/upload-artifact@v1
       with:
-        github_token: ${{ secrets.TOKEN }}
-        publish_dir: ./test-results/
+        name: report
+        path: robot/tests/report.html
