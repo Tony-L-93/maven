@@ -14,6 +14,10 @@ on:
   pull_request:
     branches: [ "main" ]
 
+permissions:
+  contents: read
+  security-events: write
+  
 jobs:
   build:
     name: Build
@@ -26,3 +30,21 @@ jobs:
         java-version: 1.8
     - name: Build with Maven
       run: mvn -B package --file pom.xml
+    
+    - name: Archive Test Results
+      uses: actions/upload-artifact@v2
+      with:
+        name: test-results
+        path: build/reports/tests/test/
+  
+    - name: Download Test Results
+      uses: actions/download-artifact@v2
+      with:
+        name: test-results
+        path: test-results
+    
+    - name: Publish Test Results as Github Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.TOKEN }}
+        publish_dir: ./test-results/
